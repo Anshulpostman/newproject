@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "Anshulpostman/newproject",
+  "pipelineDirectory": "newproject",
+  "workspaceDirectory": "newproject\\newproject",
+  "repositories": {
+    "Anshulpostman/newproject": {
+      "repositoryPath": "newproject\\newproject",
+      "lastRunOn": "03/11/2025 17:44:26 +05:30"
+    }
+  },
+  "lastRunOn": "03/11/2025 17:44:26 +05:30"
+}
