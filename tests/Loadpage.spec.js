@@ -13,7 +13,7 @@ if(currenturl==validurl){
 
 }
 else{
-    console.log("page not opened correctly")
+    console.log("page not opened correctly while project ")
 }
 
 
