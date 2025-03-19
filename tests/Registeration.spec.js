@@ -1,5 +1,5 @@
-    const{test , expect}=require('@playwright/test')
-
+    const{test , expect , request}=require('@playwright/test');
+    const { openurl, Alreadyregister } = require('./AutomationMethod'); 
     test("test the functionality of registration if user click on signup with name and emailid" , async({page})=>{
     
     const url="https://www.automationexercise.com/login"
@@ -32,21 +32,24 @@
 
     test("test the functionality if already register user try to register" , async ({page})=>{
 
+        await openurl(page);
+        await Alreadyregister(page);
 
-        
-    })
+      })
+
+      
   
 
-    test.only("test the functionality of Enter the data information" , async({page})=>{
+    test("test the functionality of Enter the data information" , async({page})=>{
     
-    const url="https://www.automationexercise.com/login"
-    await page.goto(url);
+     await openurl(page);
+     await page.locator("//a[normalize-space()='Signup / Login']").click();
     
-    const validtionmessagename=await page.locator("//input[@placeholder='Name']").fill("abc");
-    const validationmessageemail=await page.locator("//input[@data-qa='signup-email']").fill("abc567@yopmail.com");
+    const validtionmessagename=await page.locator("//input[@placeholder='Name']").fill("abcd");
+    const validationmessageemail=await page.locator("//input[@data-qa='signup-email']").fill("abc5678@yopmail.com");
     await page.locator("//button[normalize-space()='Signup']").click();
     await page.locator("//input[@value='Mr']");
-    await page.locator("//input[@type='password']").fill("abc11@123")
+    await page.locator("//input[@type='password']").fill("abc111@123")
     await page.locator("//select[@data-qa='days']").selectOption({label : "12"});
     await page.locator("//select[@data-qa='months']").selectOption({label : "June"});
     await page.locator("//select[@data-qa='years']").selectOption({label : "2001"});
@@ -66,7 +69,52 @@
     //
     const Accountcreated="https://www.automationexercise.com/account_created";
 
-    expect(Accountcreated).toHaveURL("https://www.automationexercise.com/account_created")
+    expect(Accountcreated).toBe("https://www.automationexercise.com/account_created")
     console.log("user account created successfully" +Accountcreated )
     await page.pause();
 })
+      
+          // API Testing
+
+        test.only("test the api of login with valid email and password" , async({request})=>{
+
+        const responseget=await request.post('https://automationexercise.com/api/verifyLogin',{
+
+        data: {
+
+         email:   "abc567@yopmail.com",
+         password:   "abc11@123",
+         }
+ 
+        })
+      // ✅ Check if API response is 200 (Success)
+       expect(responseget.status()).toBe(200);
+
+      // ✅ Get response body
+      const reponsebody=await responseget.json();
+      console.log("Response is getting"+reponsebody)
+
+      // ✅ Validate response contains token or success message
+  expect(reponsebody).toBe('token')
+
+})
+
+
+   //Registeration Api
+
+   test("test the functionality of registeration api" , async({request})=>{
+
+    const response=await request.post('https://automationexercise.com/api/createAccount'{
+
+        data: name="Aditya", 
+        email: "Aditya7@yopmail.com", 
+        password: "Aditya11@123",
+         title : "Mr", 
+         birth_date:"11", 
+         birth_month: "October" birth_year, firstname, lastname, company, address1, address2, country, zipcode, state, city, mobile_number
+    }
+
+
+   })
+
+
